@@ -19,6 +19,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
 
   //Non-nullable instance field 'controller' must be initialized. use late to avoid this error
   late AnimationController controller ;
+  late Animation animation; 
 
   @override
   void initState() {
@@ -27,8 +28,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
     controller = AnimationController(
       duration: Duration(seconds: 1),
       vsync: this,
-      upperBound: 100,
       );
+
+      animation = new CurvedAnimation(parent: controller, curve: Curves.easeIn);
     
 
     controller.forward();
@@ -36,7 +38,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
       setState(() {
         
       });
-      print(controller.value);
+      print(animation.value);
     });
   }
 
@@ -55,7 +57,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                 Hero(
                   tag: 'logo',
                   child: Container(
-                    height: controller.value,
+                    height: animation.value * 100 ,
                     child: Image.asset('images/logo.png'),
                   ),
                 ),
