@@ -51,10 +51,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             TextField(
               textAlign: TextAlign.center,
+              obscureText: true,
               onChanged: (value) {
                 //Do something with the user input(password).
                 password = value;
-                
               },
               decoration: kTextFieldDecoration.copyWith(
                   hintText: 'Enter your password'),
