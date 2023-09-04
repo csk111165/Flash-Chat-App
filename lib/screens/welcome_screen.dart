@@ -2,6 +2,7 @@
 
 import 'registration_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 import 'login_screen.dart';
 
@@ -68,13 +69,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                     child: Image.asset('images/logo.png'),
                   ),
                 ),
-                 Text(
-                  'Flash Chat',
-                  style: TextStyle(
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.w900,
-                  ),
+                 DefaultTextStyle(
+                style: const TextStyle(
+                  fontSize: 20.0, // Specify your desired font size here
+                  color: Colors.pink, 
+                  fontWeight: FontWeight.w900
+                  // Text color
                 ),
+                child:  AnimatedTextKit(
+                  animatedTexts: [
+                      TypewriterAnimatedText('Flash Chat'),
+                      TypewriterAnimatedText('We respect your privacy! 🔏'),
+                      TypewriterAnimatedText('We are better that whatsapp 😀'),
+                  ],
+                  
+           
+                ),
+                 )
               ],
             ),
             const SizedBox(
