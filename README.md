@@ -19,3 +19,8 @@ samples, guidance on mobile development, and a full API reference.
 
 * body1 doesnot exists now, need to use bodyMedium or other subsequent things 
 * FlatButton is deprecated use TextButton
+
+# Notes
+
+* copyWith copies the property but allows the other attrib to get modified too, like here hinttext
+* this would allow us to use the same componemtn with slightly varying property.
