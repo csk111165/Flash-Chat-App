@@ -6,6 +6,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 
 import 'login_screen.dart';
 
+
 class WelcomeScreen extends StatefulWidget {
 
   static const String id = 'welcome_screen';
@@ -21,6 +22,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
   //Non-nullable instance field 'controller' must be initialized. use late to avoid this error
   late AnimationController controller ;
   late Animation animation; 
+  
+ static const colorizeColors = [
+  Colors.purple,
+  Colors.blue,
+  Colors.yellow,
+  Colors.red,
+];
+
+static const colorizeTextStyle = TextStyle(
+  fontSize: 30.0,
+  fontFamily: 'Horizon',
+);
 
   @override
   void initState() {
@@ -71,16 +84,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                 ),
                  DefaultTextStyle(
                 style: const TextStyle(
-                  fontSize: 20.0, // Specify your desired font size here
-                  color: Colors.pink, 
+                  fontSize: 30.0, // Specify your desired font size here
+                  color: Colors.black, 
                   fontWeight: FontWeight.w900
                   // Text color
                 ),
                 child:  AnimatedTextKit(
                   animatedTexts: [
-                      TypewriterAnimatedText('Flash Chat'),
-                      TypewriterAnimatedText('We respect your privacy! 🔏'),
-                      TypewriterAnimatedText('We are better that whatsapp 😀'),
+                      ColorizeAnimatedText('Flash Chat', textStyle: colorizeTextStyle,colors: colorizeColors,),
+                      ColorizeAnimatedText('We respect your privacy...', textStyle: colorizeTextStyle,colors: colorizeColors,),
+                      ColorizeAnimatedText('We are building future...', textStyle: colorizeTextStyle,colors: colorizeColors,),
                   ],
                   
            
