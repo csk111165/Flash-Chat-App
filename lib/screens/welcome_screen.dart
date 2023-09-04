@@ -91,10 +91,13 @@ static const colorizeTextStyle = TextStyle(
                 ),
                 child:  AnimatedTextKit(
                   animatedTexts: [
-                      ColorizeAnimatedText('Flash Chat', textStyle: colorizeTextStyle,colors: colorizeColors,),
-                      ColorizeAnimatedText('We respect your privacy...', textStyle: colorizeTextStyle,colors: colorizeColors,),
+                      ColorizeAnimatedText('Flash Chat', textStyle: colorizeTextStyle,colors: colorizeColors,speed: Duration(milliseconds: 200)),
+                      ColorizeAnimatedText('We respect your privacy...', textStyle: colorizeTextStyle,colors: colorizeColors,speed: Duration(milliseconds: 300)),
                       ColorizeAnimatedText('We are building future...', textStyle: colorizeTextStyle,colors: colorizeColors,),
                   ],
+                  
+                  isRepeatingAnimation: true,
+
                   
            
                 ),
