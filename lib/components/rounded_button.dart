@@ -7,8 +7,7 @@ class RoundedButton extends StatelessWidget {
 
   // define our custom constructor
 
-  RoundedButton(
-      {required this.colour, required this.title,  this.onPressed});
+  RoundedButton({required this.colour, required this.title, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +23,7 @@ class RoundedButton extends StatelessWidget {
           height: 42.0,
           child: Text(
             title,
+            style: TextStyle(color: Colors.white),
           ),
         ),
       ),
