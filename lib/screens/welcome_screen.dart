@@ -1,6 +1,7 @@
 import 'registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:chat_app/components/rounded_button.dart';
 
 import 'login_screen.dart';
 
@@ -126,33 +127,3 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   }
 }
 
-class RoundedButton extends StatelessWidget {
-  final Color colour;
-  final String title;
-  final VoidCallback onPressed;
-
-  // define our custom constructor
-
-  RoundedButton(
-      {required this.colour, required this.title, required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Material(
-        elevation: 5.0,
-        color: colour,
-        borderRadius: BorderRadius.circular(30.0),
-        child: MaterialButton(
-          onPressed: onPressed,
-          minWidth: 200.0,
-          height: 42.0,
-          child: Text(
-            title,
-          ),
-        ),
-      ),
-    );
-  }
-}
