@@ -1,14 +1,10 @@
-
-
 import 'registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
 import 'login_screen.dart';
 
-
 class WelcomeScreen extends StatefulWidget {
-
   static const String id = 'welcome_screen';
 
   const WelcomeScreen({super.key});
@@ -17,23 +13,23 @@ class WelcomeScreen extends StatefulWidget {
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin{
-
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
   //Non-nullable instance field 'controller' must be initialized. use late to avoid this error
-  late AnimationController controller ;
-  late Animation animation; 
-  
- static const colorizeColors = [
-  Colors.purple,
-  Colors.blue,
-  Colors.yellow,
-  Colors.red,
-];
+  late AnimationController controller;
+  late Animation animation;
 
-static const colorizeTextStyle = TextStyle(
-  fontSize: 30.0,
-  fontFamily: 'Horizon',
-);
+  static const colorizeColors = [
+    Colors.purple,
+    Colors.blue,
+    Colors.yellow,
+    Colors.red,
+  ];
+
+  static const colorizeTextStyle = TextStyle(
+    fontSize: 30.0,
+    fontFamily: 'Horizon',
+  );
 
   @override
   void initState() {
@@ -42,23 +38,20 @@ static const colorizeTextStyle = TextStyle(
     controller = AnimationController(
       duration: Duration(seconds: 1),
       vsync: this,
-      );
+    );
 
-    animation = ColorTween(begin: Colors.blueGrey, end: Colors.white).animate(controller);
+    animation = ColorTween(begin: Colors.blueGrey, end: Colors.white)
+        .animate(controller);
     controller.forward();
 
-  
-
     controller.addListener(() {
-      setState(() {
-        
-      });
-     // print(animation.value);
+      setState(() {});
+      // print(animation.value);
     });
   }
 
   @override
-  void dispose(){
+  void dispose() {
     controller.dispose();
     super.dispose();
   }
@@ -82,51 +75,50 @@ static const colorizeTextStyle = TextStyle(
                     child: Image.asset('images/logo.png'),
                   ),
                 ),
-                 DefaultTextStyle(
-                style: const TextStyle(
-                  fontSize: 30.0, // Specify your desired font size here
-                  color: Colors.black, 
-                  fontWeight: FontWeight.w900
-                  // Text color
-                ),
-                child:  AnimatedTextKit(
-                  animatedTexts: [
-                      ColorizeAnimatedText('Flash Chat', textStyle: colorizeTextStyle,colors: colorizeColors,speed: Duration(milliseconds: 200)),
-                      ColorizeAnimatedText('We respect your privacy...', textStyle: colorizeTextStyle,colors: colorizeColors,speed: Duration(milliseconds: 300)),
-                      ColorizeAnimatedText('We are building future...', textStyle: colorizeTextStyle,colors: colorizeColors,),
-                  ],
-                  
-                  isRepeatingAnimation: true,
-
-                  
-           
-                ),
-                 )
+                DefaultTextStyle(
+                  style: const TextStyle(
+                      fontSize: 30.0, // Specify your desired font size here
+                      color: Colors.black,
+                      fontWeight: FontWeight.w900
+                      // Text color
+                      ),
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      ColorizeAnimatedText('Flash Chat',
+                          textStyle: colorizeTextStyle,
+                          colors: colorizeColors,
+                          speed: Duration(milliseconds: 200)),
+                      ColorizeAnimatedText('We respect your privacy...',
+                          textStyle: colorizeTextStyle,
+                          colors: colorizeColors,
+                          speed: Duration(milliseconds: 300)),
+                      ColorizeAnimatedText(
+                        'We are building future...',
+                        textStyle: colorizeTextStyle,
+                        colors: colorizeColors,
+                      ),
+                    ],
+                    isRepeatingAnimation: true,
+                  ),
+                )
               ],
             ),
             const SizedBox(
               height: 48.0,
             ),
-            RoundedButton(),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                elevation: 5.0,
-                child: MaterialButton(
-                  onPressed: () {
-                    //Go to registration screen.
-                    Navigator.pushNamed(context, RegistrationScreen.id);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: const Text(
-                    'Register',
-                  ),
-                ),
-              ),
+            RoundedButton(
+              title: 'Log in',
+              colour: Colors.lightBlueAccent,
+              onPressed: () {
+                Navigator.pushNamed(context, LoginScreen.id);
+              },
             ),
+            RoundedButton(
+                colour: Colors.blueAccent,
+                title: 'Register',
+                onPressed: () {
+                  Navigator.pushNamed(context, RegistrationScreen.id);
+                }),
           ],
         ),
       ),
@@ -135,14 +127,14 @@ static const colorizeTextStyle = TextStyle(
 }
 
 class RoundedButton extends StatelessWidget {
-  
   final Color colour;
   final String title;
   final VoidCallback onPressed;
 
   // define our custom constructor
 
-  RoundedButton({required this.colour, required this.title, required this.onPressed});
+  RoundedButton(
+      {required this.colour, required this.title, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +148,7 @@ class RoundedButton extends StatelessWidget {
           onPressed: onPressed,
           minWidth: 200.0,
           height: 42.0,
-          child:  Text(
+          child: Text(
             title,
           ),
         ),
