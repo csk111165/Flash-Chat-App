@@ -25,10 +25,19 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void getCurrentUser()  {
     
-
     final user =  _auth.currentUser;
     if(user != null){
       loggedInUser = user;
+    }
+  }
+
+  void getMessages() async {
+
+    final messages = await _firestore.collection('messages').get();
+
+    for (var message in messages.docs)
+    {
+      print(message.data());
     }
   }
 
@@ -49,8 +58,9 @@ class _ChatScreenState extends State<ChatScreen> {
               icon: const Icon(Icons.close),
               onPressed: () {
                 //Implement logout functionality
-                _auth.signOut();
-                Navigator.pop(context);
+                // _auth.signOut();
+                // Navigator.pop(context);
+                getMessages();
               }),
         ],
         title: const Text('⚡️Chat'),

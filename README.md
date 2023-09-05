@@ -30,3 +30,6 @@ samples, guidance on mobile development, and a full API reference.
 * csk.111165@gmai.com
 * wow123456
 *  Firestore has been changed to FirebaseFirestore
+*  getDocuments has been changed to get()
+*  (messages.documents) ==> (messages.docs)
+*  
