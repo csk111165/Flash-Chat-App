@@ -154,6 +154,7 @@ class MessageBubble extends StatelessWidget {
     return Padding(
       padding:  EdgeInsets.all(10.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           // sender info come at top
           Text(sender, style: TextStyle(
@@ -172,6 +173,7 @@ class MessageBubble extends StatelessWidget {
                 text,
                 style: TextStyle(
                   fontSize: 20,
+                  color: Colors.white,
                 ),
                 ),
             ),
