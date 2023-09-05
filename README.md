@@ -29,4 +29,4 @@ samples, guidance on mobile development, and a full API reference.
 * Also you need to add this to system path variable and restarat : C:\Users\cshekhar\AppData\Local\Pub\Cache\bin
 * csk.111165@gmai.com
 * wow123456
-*  
+*  Firestore has been changed to FirebaseFirestore
