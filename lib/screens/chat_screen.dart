@@ -77,27 +77,29 @@ class _ChatScreenState extends State<ChatScreen> {
             StreamBuilder<QuerySnapshot>(
               stream: _firestore.collection('messages').snapshots(),
               builder: (context, snapshot) {
-
                 List<Text> messageWidgets = [];
 
-                if (snapshot.hasData) {
-                  final messages = snapshot.data!.docs; // data! since it gives an error and also it is suggested in the udemy forum comments
-                  
-
-                  for( var message in messages) {
-                    // get text
-                    final messageText = message.get('text'); // message.data['text'] does not work now..
-                    //get sender
-                    final messageSender = message.get('sender');
-
-                    final messageWidget = Text('$messageText from $messageSender');
-                    messageWidgets.add(messageWidget);
-                  }
-
-                  
+                if (!snapshot.hasData) {
+                  // if we don't have data then show a spiiner
+                  return const Center(
+                    child: CircularProgressIndicator(
+                        backgroundColor: Colors.lightBlueAccent),
+                  );
                 }
-                return Column(children: messageWidgets); // directly returning the messageWidget is not working
-                
+                final messages = snapshot.data!.docs; // data! since it gives an error and also it is suggested in the udemy forum comments
+
+                for (var message in messages) {
+                  // get text
+                  final messageText = message.get('text'); // message.data['text'] does not work now..
+                  //get sender
+                  final messageSender = message.get('sender');
+                  final messageWidget = Text('$messageText from $messageSender');
+                  messageWidgets.add(messageWidget);
+
+                }
+                return Column(
+                    children:
+                        messageWidgets); // directly returning the messageWidget is not working
               },
             ),
             Container(
