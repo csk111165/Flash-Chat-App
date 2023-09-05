@@ -77,7 +77,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 ),
                 DefaultTextStyle(
                   style: const TextStyle(
-                      fontSize: 30.0, // Specify your desired font size here
+                      fontSize: 20.0, // Specify your desired font size here
                       color: Colors.black,
                       fontWeight: FontWeight.w900
                       // Text color
