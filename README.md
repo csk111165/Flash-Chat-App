@@ -24,3 +24,9 @@ samples, guidance on mobile development, and a full API reference.
 
 * copyWith copies the property but allows the other attrib to get modified too, like here hinttext
 * this would allow us to use the same componemtn with slightly varying property.
+* FirebaseUser changed to User in modern firebase : https://stackoverflow.com/questions/63482162/undefined-class-firebaseuser
+* https://firebase.flutter.dev/docs/overview/#initializing-flutterfire : when you get some error realted to DefaultFirebaseOptions
+* Also you need to add this to system path variable and restarat : C:\Users\cshekhar\AppData\Local\Pub\Cache\bin
+* csk.111165@gmai.com
+* wow123456
+*  
