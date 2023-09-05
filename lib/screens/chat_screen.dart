@@ -22,7 +22,6 @@ class _ChatScreenState extends State<ChatScreen> {
     final user =  _auth.currentUser;
     if(user != null){
       loggedInUser = user;
-      print("inside the chatApp : ${loggedInUser.email}");
     }
   }
 
