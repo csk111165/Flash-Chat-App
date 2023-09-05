@@ -77,7 +77,7 @@ class _ChatScreenState extends State<ChatScreen> {
             StreamBuilder<QuerySnapshot>(
               stream: _firestore.collection('messages').snapshots(),
               builder: (context, snapshot) {
-                List<Text> messageWidgets = [];
+                List<MessageBubble> messageBubbles = [];
 
                 if (!snapshot.hasData) {
                   // if we don't have data then show a spiiner
@@ -93,13 +93,15 @@ class _ChatScreenState extends State<ChatScreen> {
                   final messageText = message.get('text'); // message.data['text'] does not work now..
                   //get sender
                   final messageSender = message.get('sender');
-                  final messageWidget = Text('$messageText from $messageSender');
-                  messageWidgets.add(messageWidget);
-
+                  final messageBubble = MessageBubble(sender: messageSender, text: messageText);
+                  messageBubbles.add(messageBubble);
                 }
-                return Column(
-                    children:
-                        messageWidgets); // directly returning the messageWidget is not working
+                return Expanded(
+                  child: ListView(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                      children: messageBubbles),
+                ); // directly returning the messageWidget is not working
               },
             ),
             Container(
@@ -135,6 +137,46 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class MessageBubble extends StatelessWidget {
+  late final String sender;
+  late final String text;
+
+  MessageBubble({required this.sender, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    // wrapping it with Material would allow to add background color and other styling
+    return Padding(
+      padding:  EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          // sender info come at top
+          Text(sender, style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.black54,
+          ),),
+          Material(
+            // to add shadow under the section
+            elevation: 5.0,
+            // to make rounded 
+            borderRadius: BorderRadius.circular(30),
+            color: Colors.lightGreen,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+                ),
+            ),
+            ),
+        ],
       ),
     );
   }
