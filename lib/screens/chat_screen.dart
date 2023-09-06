@@ -73,7 +73,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 messagesStream();
               }),
         ],
-        title: const Text('⚡️Chat'),
+        title: const Text('❣️Cutoo-Moon ChatApp❣️'),
         backgroundColor: Colors.lightBlueAccent,
       ),
       body: SafeArea(
@@ -143,7 +143,7 @@ class MessageStream extends StatelessWidget {
                         backgroundColor: Colors.lightBlueAccent),
                   );
                 }
-                final messages = snapshot.data!.docs.reversed; // data! since it gives an error and also it is suggested in the udemy forum comments
+                final messages = snapshot.data!.docs; // data! since it gives an error and also it is suggested in the udemy forum comments
 
                 for (var message in messages) {
                   // get text
@@ -160,7 +160,6 @@ class MessageStream extends StatelessWidget {
                 return Expanded(
                   child: ListView(
                     // reverse is made true to follow the order of the messages received in the ui
-                      reverse: true,
                       padding:EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                       children: messageBubbles
                       ),

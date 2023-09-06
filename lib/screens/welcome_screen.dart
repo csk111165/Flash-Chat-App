@@ -84,16 +84,16 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       ),
                   child: AnimatedTextKit(
                     animatedTexts: [
-                      ColorizeAnimatedText('Flash Chat',
+                      ColorizeAnimatedText('Cutoo-Moon Chat',
                           textStyle: colorizeTextStyle,
                           colors: colorizeColors,
                           speed: Duration(milliseconds: 200)),
-                      ColorizeAnimatedText('Loading..',
+                      ColorizeAnimatedText('Loading Moon..',
                           textStyle: colorizeTextStyle,
                           colors: colorizeColors,
                           speed: Duration(milliseconds: 400)),
                       ColorizeAnimatedText(
-                        'Configuring..',
+                        'Loading Cutoo..',
                         textStyle: colorizeTextStyle,
                         colors: colorizeColors,
                       ),
