@@ -108,6 +108,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         // add () expects a map < string,
                         'text': messageText,
                         'sender': loggedInUser.email,
+                        'timestamp': DateTime.now(), // add this for sorting the message based on timestamp
                       });
                     },
                     child: const Text(
@@ -131,7 +132,7 @@ class MessageStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-              stream: _firestore.collection('messages').snapshots(),
+              stream: _firestore.collection('messages').orderBy('timestamp').snapshots(),
               builder: (context, snapshot) {
                 List<MessageBubble> messageBubbles = [];
 
@@ -142,7 +143,7 @@ class MessageStream extends StatelessWidget {
                         backgroundColor: Colors.lightBlueAccent),
                   );
                 }
-                final messages = snapshot.data!.docs; // data! since it gives an error and also it is suggested in the udemy forum comments
+                final messages = snapshot.data!.docs.reversed; // data! since it gives an error and also it is suggested in the udemy forum comments
 
                 for (var message in messages) {
                   // get text
