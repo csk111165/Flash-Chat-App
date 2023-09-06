@@ -20,6 +20,9 @@ class _ChatScreenState extends State<ChatScreen> {
   late User loggedInUser;
   //store the message
   late String messageText;
+
+  // adding TextEditingController for clearning out the text field when message is sent
+  final messageTextController = TextEditingController();
   
 
   void getCurrentUser() {
@@ -85,6 +88,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      controller: messageTextController,
                       onChanged: (value) {
                         //Do something with the user input.
                         messageText = value;
@@ -94,6 +98,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   TextButton(
                     onPressed: () {
+
+                      // clear the input text field using controller
+                      messageTextController.clear();
                       //Implement send functionality.
                       _firestore.collection('messages').add({
                         // add () expects a map < string,
