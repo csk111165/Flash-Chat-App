@@ -7,6 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // make it global to be able to access in other classes.
   final _firestore = FirebaseFirestore.instance;
 
+  late User loggedInUser;
+
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
 
@@ -17,7 +19,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
-  late User loggedInUser;
+  
   //store the message
   late String messageText;
 
@@ -145,16 +147,21 @@ class MessageStream extends StatelessWidget {
                 for (var message in messages) {
                   // get text
                   final messageText = message.get('text'); // message.data['text'] does not work now..
-                  //get sender
+                  //get sender email
                   final messageSender = message.get('sender');
-                  final messageBubble = MessageBubble(sender: messageSender, text: messageText);
+
+                  // get the current logged in user, so that we can differentiate between messages sent by other user
+                  final currentUser = loggedInUser.email;
+
+                  final messageBubble = MessageBubble(sender: messageSender, text: messageText, isMe: currentUser == messageSender,);
                   messageBubbles.add(messageBubble);
                 }
                 return Expanded(
                   child: ListView(
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                      children: messageBubbles),
+                      children: messageBubbles
+                      ),
                 ); // directly returning the messageWidget is not working
               },
             );
@@ -166,8 +173,10 @@ class MessageStream extends StatelessWidget {
 class MessageBubble extends StatelessWidget {
   late final String sender;
   late final String text;
+  // this is to track the messages send by the current user
+  late final bool isMe;
 
-  MessageBubble({required this.sender, required this.text});
+  MessageBubble({required this.sender, required this.text, required this.isMe});
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +184,8 @@ class MessageBubble extends StatelessWidget {
     return Padding(
       padding:  EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        // moving the chats to left in case it is coming form other user
+        crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           // sender info come at top
           Text(sender, style: TextStyle(
@@ -185,13 +195,18 @@ class MessageBubble extends StatelessWidget {
           Material(
             // to add shadow under the section
             elevation: 5.0,
-            // to make it little bit stylish 
-            borderRadius: BorderRadius.only(
+            // to make it little bit stylish and conditional formating for message bubble
+            borderRadius: isMe ?  BorderRadius.only(
               topLeft: Radius.circular(30),
               bottomLeft: Radius.circular(30),
               bottomRight: Radius.circular(30),
+            ) :  BorderRadius.only(
+              topRight: Radius.circular(30),
+              bottomRight: Radius.circular(30),
+              bottomLeft: Radius.circular(30),
+
             ),
-            color: Colors.blueGrey,
+            color: isMe ?  Colors.lightBlue : Colors.amber,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(
