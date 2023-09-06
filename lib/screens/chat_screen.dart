@@ -158,8 +158,9 @@ class MessageStream extends StatelessWidget {
                 }
                 return Expanded(
                   child: ListView(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                    // reverse is made true to follow the order of the messages received in the ui
+                      reverse: true,
+                      padding:EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                       children: messageBubbles
                       ),
                 ); // directly returning the messageWidget is not working
