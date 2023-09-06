@@ -4,6 +4,9 @@ import 'package:chat_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// make it global to be able to access in other classes.
+  final _firestore = FirebaseFirestore.instance;
+
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
 
@@ -17,8 +20,7 @@ class _ChatScreenState extends State<ChatScreen> {
   late User loggedInUser;
   //store the message
   late String messageText;
-  // instantiate the firestore
-  final _firestore = FirebaseFirestore.instance;
+  
 
   void getCurrentUser() {
     final user = _auth.currentUser;
@@ -74,36 +76,8 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            StreamBuilder<QuerySnapshot>(
-              stream: _firestore.collection('messages').snapshots(),
-              builder: (context, snapshot) {
-                List<MessageBubble> messageBubbles = [];
+            MessageStream(),
 
-                if (!snapshot.hasData) {
-                  // if we don't have data then show a spiiner
-                  return const Center(
-                    child: CircularProgressIndicator(
-                        backgroundColor: Colors.lightBlueAccent),
-                  );
-                }
-                final messages = snapshot.data!.docs; // data! since it gives an error and also it is suggested in the udemy forum comments
-
-                for (var message in messages) {
-                  // get text
-                  final messageText = message.get('text'); // message.data['text'] does not work now..
-                  //get sender
-                  final messageSender = message.get('sender');
-                  final messageBubble = MessageBubble(sender: messageSender, text: messageText);
-                  messageBubbles.add(messageBubble);
-                }
-                return Expanded(
-                  child: ListView(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                      children: messageBubbles),
-                ); // directly returning the messageWidget is not working
-              },
-            ),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
@@ -141,6 +115,46 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 }
+
+// class for refactoring 
+class MessageStream extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+              stream: _firestore.collection('messages').snapshots(),
+              builder: (context, snapshot) {
+                List<MessageBubble> messageBubbles = [];
+
+                if (!snapshot.hasData) {
+                  // if we don't have data then show a spiiner
+                  return const Center(
+                    child: CircularProgressIndicator(
+                        backgroundColor: Colors.lightBlueAccent),
+                  );
+                }
+                final messages = snapshot.data!.docs; // data! since it gives an error and also it is suggested in the udemy forum comments
+
+                for (var message in messages) {
+                  // get text
+                  final messageText = message.get('text'); // message.data['text'] does not work now..
+                  //get sender
+                  final messageSender = message.get('sender');
+                  final messageBubble = MessageBubble(sender: messageSender, text: messageText);
+                  messageBubbles.add(messageBubble);
+                }
+                return Expanded(
+                  child: ListView(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                      children: messageBubbles),
+                ); // directly returning the messageWidget is not working
+              },
+            );
+  }
+}  
+
+
 
 class MessageBubble extends StatelessWidget {
   late final String sender;

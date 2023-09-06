@@ -91,7 +91,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       ColorizeAnimatedText('Loading..',
                           textStyle: colorizeTextStyle,
                           colors: colorizeColors,
-                          speed: Duration(milliseconds: 300)),
+                          speed: Duration(milliseconds: 400)),
                       ColorizeAnimatedText(
                         'Configuring..',
                         textStyle: colorizeTextStyle,
@@ -99,6 +99,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       ),
                     ],
                     isRepeatingAnimation: true,
+                    repeatForever: true,
                   ),
                 )
               ],
