@@ -73,7 +73,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 messagesStream();
               }),
         ],
-        title: const Text('❣️Cutoo-Moon ChatApp❣️'),
+        title: const Text('⚡️ChatApp'),
         backgroundColor: Colors.lightBlueAccent,
       ),
       body: SafeArea(
